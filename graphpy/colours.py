@@ -74,6 +74,25 @@ class ColourMapGenerator:
         self.residual_hexes = ["#3B9AB2", "#78B7C5", "#fafbfc", "#E1AF00", "#d83c04"]
         self.lim_red_hexes = ["#EBCC2A", "#E1AF00", "#d83c04"]
         self.lim_blue_hexes = ["#3B9AB2", "#78B7C5", "#FFFFFF"]
+        self.climate_stripes_hexes = [
+            "#67000d",
+            "#a50f15",
+            "#cb181d",
+            "#ef3b2c",
+            "#fb6a4a",
+            "#fc9272",
+            "#fcbba1",
+            "#fee0d2",
+            "#FFFFFF",
+            "#deebf7",
+            "#c6dbef",
+            "#9ecae1",
+            "#6baed6",
+            "#4292c6",
+            "#2171b5",
+            "#08519c",
+            "#08306b",
+        ]
 
     def get_cmap(self, cbar_type, vmin=None, vmax=None):
         if cbar_type == "seq":
@@ -105,6 +124,8 @@ class ColourMapGenerator:
             return get_continuous_cmap(self.lim_red_hexes)
         elif cbar_type == "spatial_conf_matrix":
             return mcolors.ListedColormap(self.conf_mat_hexes)
+        elif cbar_type == "climate_stripes":
+            return get_continuous_cmap(self.climate_stripes_hexes)
         else:
             raise ValueError(f"{cbar_type} not recognised.")
 
