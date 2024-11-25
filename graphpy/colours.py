@@ -95,39 +95,39 @@ class ColourMapGenerator:
         ]
 
     def get_cmap(self, cbar_type, vmin=None, vmax=None):
-        if cbar_type == "seq":
-            return get_continuous_cmap(self.sequential_hexes)
-        if cbar_type == "inc":
-            return get_continuous_cmap(self.sequential_hexes[2:])
-        elif cbar_type == "div":
-            if not (vmin and vmax):
-                raise ValueError(
-                    "Minimum and maximum values needed for divergent colorbar"
-                )
-            cmap = get_continuous_cmap(self.diverging_hexes)
-            norm = mcolors.TwoSlopeNorm(vmin=vmin, vcenter=0, vmax=vmax)
-            return cmap, norm
-            # return get_continuous_cmap(self.diverging_hexes)
-        elif cbar_type == "res":
-            if not (vmin and vmax):
-                raise ValueError(
-                    "Minimum and maximum values needed for divergent colorbar"
-                )
-            cmap = get_continuous_cmap(self.residual_hexes)
-            norm = mcolors.TwoSlopeNorm(vmin=vmin, vcenter=0, vmax=vmax)
-            return cmap, norm
-        elif cbar_type == "cyc":
-            return get_continuous_cmap(self.cyclical_hexes)
-        elif cbar_type == "lim_blue":
-            return get_continuous_cmap(self.lim_blue_hexes)
-        elif cbar_type == "lim_red":
-            return get_continuous_cmap(self.lim_red_hexes)
-        elif cbar_type == "spatial_conf_matrix":
-            return mcolors.ListedColormap(self.conf_mat_hexes)
-        elif cbar_type == "climate_stripes":
-            return get_continuous_cmap(self.climate_stripes_hexes)
-        else:
-            raise ValueError(f"{cbar_type} not recognised.")
+        match cbar_type:
+            case "seq":
+                return get_continuous_cmap(self.sequential_hexes)
+            case "inc":
+                return get_continuous_cmap(self.sequential_hexes[2:])
+            case "div":
+                if not (vmin and vmax):
+                    raise ValueError(
+                        "Minimum and maximum values needed for divergent colorbar"
+                    )
+                cmap = get_continuous_cmap(self.diverging_hexes)
+                norm = mcolors.TwoSlopeNorm(vmin=vmin, vcenter=0, vmax=vmax)
+                return cmap, norm
+            case "res":
+                if not (vmin and vmax):
+                    raise ValueError(
+                        "Minimum and maximum values needed for divergent colorbar"
+                    )
+                cmap = get_continuous_cmap(self.residual_hexes)
+                norm = mcolors.TwoSlopeNorm(vmin=vmin, vcenter=0, vmax=vmax)
+                return cmap, norm
+            case "cyc":
+                return get_continuous_cmap(self.cyclical_hexes)
+            case "lim_blue":
+                return get_continuous_cmap(self.lim_blue_hexes)
+            case "lim_red":
+                return get_continuous_cmap(self.lim_red_hexes)
+            case "spatial_conf_matrix":
+                return mcolors.ListedColormap(self.conf_mat_hexes)
+            case "climate_stripes":
+                return get_continuous_cmap(self.climate_stripes_hexes)
+            case _:
+                raise ValueError(f"{cbar_type} not recognised.")
 
 
 def hex_to_rgb(value):
