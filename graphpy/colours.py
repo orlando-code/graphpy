@@ -8,11 +8,14 @@ import matplotlib.colors as mcolors
 def customize_plot_colors(
     fig, ax, background_color="#212121", text_color="white", legend_text_color="black"
 ):
-    # Set figure background color
-    fig.patch.set_facecolor(background_color)
-
-    # Set axis background color (if needed)
-    ax.set_facecolor(background_color)
+    if not background_color:  # if background not provided, make transparent
+        fig.patch.set_alpha(0)
+        ax.patch.set_alpha(0)
+    else:
+        # Set figure background color
+        fig.patch.set_facecolor(background_color)
+        # Set axis background color (if needed)
+        ax.set_facecolor(background_color)
 
     # Set text color for all elements in the plot
     for text in fig.texts:
@@ -38,7 +41,9 @@ def customize_plot_colors(
     # cbar.ax.yaxis.label.set_color(text_color)
     ax.tick_params(axis="x", colors="white")
     ax.tick_params(axis="y", colors="white")
-
+    # set spines to white
+    for spine in ax.spines.values():
+        spine.set_edgecolor("white")
     return fig, ax
 
 
@@ -93,6 +98,22 @@ class ColourMapGenerator:
             "#08519c",
             "#08306b",
         ]
+        self.climate_stripes_no_white_hexes = [
+            "#67000d",
+            "#a50f15",
+            "#cb181d",
+            "#ef3b2c",
+            "#fb6a4a",
+            "#fc9272",
+            "#fcbba1",
+            "#c6dbef",
+            "#9ecae1",
+            "#6baed6",
+            "#4292c6",
+            "#2171b5",
+            "#08519c",
+            "#08306b",
+        ]
 
     def get_cmap(self, cbar_type, vmin=None, vmax=None):
         match cbar_type:
@@ -126,6 +147,8 @@ class ColourMapGenerator:
                 return mcolors.ListedColormap(self.conf_mat_hexes)
             case "climate_stripes":
                 return get_continuous_cmap(self.climate_stripes_hexes)
+            case "climate_stripes_no_white":
+                return get_continuous_cmap(self.climate_stripes_no_white_hexes)
             case _:
                 raise ValueError(f"{cbar_type} not recognised.")
 
