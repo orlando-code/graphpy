@@ -276,10 +276,18 @@ def format_spatial_plot(
 
     # format ticks, gridlines, and colours
     ax.tick_params(axis="both", which="major")
-    default_label_style_dict = {"fontsize": 12, "color": "black", "rotation": 45}
+    default_label_style_dict = {
+        "fontsize": 12,
+        "color": "black",
+        "rotation": 45,
+        "gridlines": True,
+    }
 
-    if cartopy_dict:
-        if cartopy_dict["gridlines"]:
+    if label_style_dict:
+        for k, v in label_style_dict.items():
+            default_label_style_dict[k] = v
+
+        if default_label_style_dict["gridlines"]:
             gl = ax.gridlines(
                 crs=ccrs.PlateCarree(),
                 draw_labels=True,
@@ -299,10 +307,6 @@ def format_spatial_plot(
                 gl.bottom_labels = "b" in labels
                 gl.left_labels = "l" in labels
                 gl.right_labels = "r" in labels
-
-    if label_style_dict:
-        for k, v in label_style_dict.items():
-            default_label_style_dict[k] = v
     if presentation_format:
         default_label_style_dict["color"] = "white"
         if cbar_dict and cbar_dict["cbar"]:
