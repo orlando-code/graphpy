@@ -284,7 +284,7 @@ def format_spatial_plot(
     }
 
     # if default_label_style_dict:
-    if default_label_style_dict:
+    if label_style_dict:
         for k, v in label_style_dict.items():
             default_label_style_dict[k] = v
 
