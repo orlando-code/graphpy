@@ -211,7 +211,6 @@ def format_cartopy_display(ax, cartopy_dict: dict = None):
         "facecolor": "#cfcfcf",  # "none"
         "linewidth": 0.5,
         "alpha": 0.5,
-        "gridlines": True,
     }
 
     if cartopy_dict:
@@ -288,26 +287,26 @@ def format_spatial_plot(
         for k, v in label_style_dict.items():
             default_label_style_dict[k] = v
 
-    if default_label_style_dict["gridlines"]:
-        gl = ax.gridlines(
-            crs=ccrs.PlateCarree(),
-            draw_labels=True,
-            # x_inline=False, y_inline=False
-        )
+    # if default_label_style_dict["gridlines"]:
+    gl = ax.gridlines(
+        crs=ccrs.PlateCarree(),
+        draw_labels=True,
+        # x_inline=False, y_inline=False
+    )
 
-        gl.xlabel_style = default_label_style_dict
-        gl.ylabel_style = default_label_style_dict
+    gl.xlabel_style = default_label_style_dict
+    gl.ylabel_style = default_label_style_dict
 
-        if (
-            not labels
-        ):  # if no labels specified, set up something to iterate through returning nothing
-            labels = [" "]
-        if labels:
-            # convert labels to relevant boolean: ["t","r","b","l"]
-            gl.top_labels = "t" in labels
-            gl.bottom_labels = "b" in labels
-            gl.left_labels = "l" in labels
-            gl.right_labels = "r" in labels
+    if (
+        not labels
+    ):  # if no labels specified, set up something to iterate through returning nothing
+        labels = [" "]
+    if labels:
+        # convert labels to relevant boolean: ["t","r","b","l"]
+        gl.top_labels = "t" in labels
+        gl.bottom_labels = "b" in labels
+        gl.left_labels = "l" in labels
+        gl.right_labels = "r" in labels
     if presentation_format:
         default_label_style_dict["color"] = "white"
         if cbar_dict and cbar_dict["cbar"]:
