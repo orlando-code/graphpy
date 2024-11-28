@@ -280,12 +280,13 @@ def format_spatial_plot(
         "fontsize": 12,
         "color": "black",
         "rotation": 45,
-        # "gridlines": True,
+        "gridlines": True,
     }
 
     # if default_label_style_dict:
-    for k, v in label_style_dict.items():
-        default_label_style_dict[k] = v
+    if default_label_style_dict:
+        for k, v in label_style_dict.items():
+            default_label_style_dict[k] = v
 
     if default_label_style_dict["gridlines"]:
         gl = ax.gridlines(
