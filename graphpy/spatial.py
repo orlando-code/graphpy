@@ -279,7 +279,7 @@ def format_spatial_plot(
         "fontsize": 12,
         "color": "black",
         "rotation": 45,
-        "gridlines": True,
+        # "gridlines": True,
     }
 
     # if default_label_style_dict:
